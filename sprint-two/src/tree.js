@@ -18,16 +18,17 @@ treeMethods.addChild = function(value){
   this.children.push(tree);
 };
 
-treeMethods.contains = function(target){
+treeMethods.contains = function(target, result){
 
-  var result = false;
+  var result = result || false;
+
   if(this.value === target) {
     result = true;
   } else if(this.children.length !== 0) {
     for(var i = 0; i < this.children.length; i++) {
-      return this.children[i].contains(target);  
+      result = this.children[i].contains(target, result);  
     }
-  } 
+  }
   return result;
 };
 
