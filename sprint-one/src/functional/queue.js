@@ -13,7 +13,7 @@ var Queue = function(){
   someInstance.dequeue = function(){
     var firstKey = Object.keys(storage)[0];
     var front = storage[firstKey];
-    for(var i = 0; i < Object.keys(storage).length; i++) {
+    for(var i = 0; i < Object.keys(storage).length - 1; i++) {
       storage[i] = storage[i + 1];
     }
     delete storage[Object.keys(storage).length - 1];
