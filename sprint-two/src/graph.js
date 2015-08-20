@@ -4,7 +4,7 @@
 
 // Instantiate a new graph
 var Graph = function(){
-  this.graph = [];
+  this.graph = {};
 };
 
 // ------------------------
@@ -13,20 +13,19 @@ Graph.prototype.addNode = function(node){
   var newNode = {};
   newNode.edge = [];
   newNode.value = node;
-  this.graph.push(newNode);
-
+  this.graph[node] = newNode;
 };
 
 // ------------------------
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype.contains = function(node){
-  // this.graph.forEachNode(function(val) {
-  //   if(val === node) {
+  // this.forEachNode(function(val) {
+  //   if(val.value === node) {
   //     return true;
   //   }
   // });
   // return false;
-  for (var i = 0; i < this.graph.length; i++) {
+  for (var i in this.graph) {
     if (this.graph[i].value === node) {
       return true;
     }
@@ -37,19 +36,24 @@ Graph.prototype.contains = function(node){
 // ------------------------
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node){
-  if(this.graph.contains(node)) {
-    
-  }
+  delete this.graph[node];
 };
 
 // ------------------------
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode){
+  if (this.graph[fromNode].edge.indexOf(toNode) !== -1) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 // ------------------------
 // Connects two nodes in a graph by adding an edge between them.
 Graph.prototype.addEdge = function(fromNode, toNode){
+  this.graph[fromNode].edge.push(toNode);
+  this.graph[toNode].edge.push(fromNode);
 };
 
 // ------------------------
@@ -60,9 +64,8 @@ Graph.prototype.removeEdge = function(fromNode, toNode){
 // ------------------------
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb){
-  for(var i = 0; i < this.graph.length; i++) {
-    //cb(this.graph[i]);
-    cb.call(this.graph[i]);
+  for(var i in this.graph) {
+    cb(this.graph[i]);
   }
 };
 
