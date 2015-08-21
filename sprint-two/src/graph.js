@@ -19,12 +19,6 @@ Graph.prototype.addNode = function(node){
 // ------------------------
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype.contains = function(node){
-  // this.forEachNode(function(val) {
-  //   if(val.value === node) {
-  //     return true;
-  //   }
-  // });
-  // return false;
   for (var i in this.graph) {
     if (this.graph[i].value === node) {
       return true;
@@ -71,7 +65,7 @@ Graph.prototype.removeEdge = function(fromNode, toNode){
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb){
   for(var i in this.graph) {
-    cb(this.graph[i]);
+    cb(this.graph[i].value);
   }
 };
 
