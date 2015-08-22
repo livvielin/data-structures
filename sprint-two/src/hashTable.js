@@ -19,22 +19,27 @@ HashTable.prototype.insert = function(k, v){
   this._storage.get(i).push(entry(k, v));
   this.numKeys++;
   if(this.numKeys / this._limit >= .75) {
-    this._limit = this._limit * 2;
-    this.reassign();
+    this.numKeys = 0;
+    this.reassign(this._limit * 2);
   }
 };
 
-HashTable.prototype.reassign = function() {
-  var newHash = this.call();
-  //var newStorage = LimitedArray.call(this._limit);
-  this._storage.each(function(bucket) {
-    for(var tuple = 0; tuple < this._storage.get(i).length; tuple++) {
-      var k = bucket[tuple][0];
-      var v = bucket[tuple][1];
-      newHash.insert(k, v);
+HashTable.prototype.reassign = function(newLimit) {
+  var context = this;
+  var oldStorage = this._storage;
+  
+  this._limit = newLimit;
+  this._storage = LimitedArray(newLimit);
+
+  oldStorage.each(function(bucket) {
+    if (bucket !== undefined) {
+      for(var tuple = 0; tuple < bucket.length; tuple++) {
+        var k = bucket[tuple][0];
+        var v = bucket[tuple][1];
+        context.insert(k, v);
+      }
     }
   });
-  this._storage = newHash._storage;
 };
 
 HashTable.prototype.retrieve = function(k){
