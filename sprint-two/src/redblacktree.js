@@ -5,6 +5,8 @@ var RedBlackTree = function(value){
   redBlackTree.value = value;
   redBlackTree.left = {};
   redBlackTree.right = {};
+  redBlackTree.parent = null;
+  redBlackTree.color = 'black';
 
   return redBlackTree;
 
@@ -14,6 +16,7 @@ RedBlackTree.prototype.insert = function(val) {
   if(val < this.value) {
     if(this.left.value === undefined) {
       this.left = RedBlackTree(val);
+      this.left.color = 'red';
     } else {
       this.left.insert(val);
     }
@@ -21,6 +24,7 @@ RedBlackTree.prototype.insert = function(val) {
   if(val > this.value) {
     if(this.right.value === undefined) {
       this.right = RedBlackTree(val);
+      this.left.color = 'red';
     } else {
       this.right.insert(val);
     }
@@ -28,6 +32,8 @@ RedBlackTree.prototype.insert = function(val) {
   if(val === this.value) {
     return;
   }
+
+  // check whether inserted RedBlackTree's parent is red
 };
 
 RedBlackTree.prototype.contains = function(val) {
@@ -67,6 +73,8 @@ RedBlackTree.prototype.depthFirstLog = function(cb, tree) {
 // console.log(b.left.right.value);
 // console.log(b.right.left.value);
 // console.log(b.contains(1));
+
+// source: http://gauss.ececs.uc.edu/RedBlack/redblack.html
 
 /*
  * Complexity: What is the time complexity of the above functions?

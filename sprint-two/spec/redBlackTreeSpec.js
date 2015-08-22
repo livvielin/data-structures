@@ -77,11 +77,11 @@ describe('redBlackTree', function() {
     expect(redBlackTree.right.color).to.equal('red');
   });
 
-  it('should distribute nodes such that every branch has the same number of black nodes', function() {
+  xit('should distribute nodes such that every branch has the same number of black nodes', function() {
     //
   });
 
-  it('should automatically redistribute and recolor nodes when height is greater than 2log2n', function() {
+  xit('should automatically redistribute and recolor nodes when height is greater than 2log2n', function() {
     //
   });
 });
