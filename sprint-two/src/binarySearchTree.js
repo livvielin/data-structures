@@ -59,6 +59,12 @@ BinarySearchTree.prototype.depthFirstLog = function(cb, tree) {
   }
 };
 
+BinarySearchTree.prototype.breadthFirstLog = function() {
+  // create result array
+
+  // return result array
+};
+
 // var b = BinarySearchTree(5);
 // b.insert(2);
 // b.insert(1);

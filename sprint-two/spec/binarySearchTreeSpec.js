@@ -11,6 +11,10 @@ describe('binarySearchTree', function() {
     expect(binarySearchTree.depthFirstLog).to.be.a("function");
   });
 
+  it('should have a method named breadthFirstLog', function() {
+    expect(binarySearchTree.breadthFirstLog).to.be.a("function");
+  });
+
   it('should insert values at the correct location in the tree', function(){
     binarySearchTree.insert(2);
     binarySearchTree.insert(3);
@@ -35,5 +39,15 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(3);
     binarySearchTree.depthFirstLog(func);
     expect(array).to.eql([5,2,3]);
+  });
+
+  it('should log the nodes contained in the tree using a breadth-first approach when breadthFirstLog is called', function() {
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(7);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(1);
+    binarySearchTree.insert(8);
+    expect(binarySearchTree.breadthFirstLog()).to.equal([5,2,7,1,3,6,8]);
   });
 });
