@@ -6,7 +6,7 @@ var RedBlackTree = function(value){
   redBlackTree.left = {};
   redBlackTree.right = {};
 
-  return binarySearchTree;
+  return redBlackTree;
 
 };
 
