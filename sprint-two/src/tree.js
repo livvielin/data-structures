@@ -7,6 +7,7 @@ var Tree = function(value){
   newTree.addChild = treeMethods.addChild;
   newTree.contains = treeMethods.contains;
   newTree.removeFromParent = treeMethods.removeFromParent;
+  newTree.traverse = treeMethods.traverse;
 
   return newTree;
 };
@@ -50,6 +51,24 @@ treeMethods.removeFromParent = function() {
   }
   // set tree's parent to null
   this.parent = null;
+};
+
+treeMethods.traverse = function(cb, currentTree) {
+  // set default for currentTree
+  currentTree = currentTree || this;
+  // check if tree has a value
+  if (currentTree.value !== undefined) {
+    // if tree has a value, apply callback function
+    cb(currentTree.value);
+  }
+  // check if tree has children
+  if (currentTree.children.length !== 0) {
+    // if tree has children, iterate through children
+    for (var i = 0; i < currentTree.children.length; i++) {
+      // recursively call traverse
+      currentTree.children[i].traverse(cb, currentTree.children[i]);
+    }
+  }
 };
 
 
