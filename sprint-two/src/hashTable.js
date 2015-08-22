@@ -36,7 +36,9 @@ HashTable.prototype.reassign = function(newLimit) {
       for(var tuple = 0; tuple < bucket.length; tuple++) {
         var k = bucket[tuple][0];
         var v = bucket[tuple][1];
-        context.insert(k, v);
+        if (v !== null) {
+          context.insert(k, v);
+        }
       }
     }
   });
@@ -58,6 +60,11 @@ HashTable.prototype.remove = function(k){
       this._storage.get(i)[tuple][1] = null;
     }
   }
+  this.numKeys--;
+  if(this.numKeys / this._limit <= .25 && this._limit > 8) {
+    this.numKeys = 0;
+    this.reassign(this._limit / 2);
+  }
 };
 
 var entry = function(key, value) {
@@ -68,16 +75,3 @@ var entry = function(key, value) {
 /*
  * Complexity: What is the time complexity of the above functions?
  */
-
-// var test = new HashTable();
-// test.insert('Steven', 'Larkin');
-// test.insert('Bob', 'Jones');
-// test.insert('Alice', 'Larkin');
-// test.insert('Peter', 'Larkin');
-// test.insert('Na', 'Larkin');
-// test.insert('Carl', 'Larkin');
-// test.insert('Hello', 'World');
-// test.insert('Tom', 'Larkin');
-// test.insert('Tim', 'Larkin');
-// test.insert('Kyle', 'Larkin');
-// test.insert('Hi', 'World');
