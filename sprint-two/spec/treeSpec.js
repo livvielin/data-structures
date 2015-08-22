@@ -11,9 +11,36 @@ describe('tree', function() {
     expect(tree.hasOwnProperty("value")).to.equal(true);
   });
 
+  it('should have a property named "parent"', function() {
+    expect(tree.hasOwnProperty("parent")).to.equal(true);
+  });
+
+  it('should have a method named "removeFromParent"', function() {
+    expect(tree.removeFromParent).to.be.a("function");
+  });
+
+  it('should disassociate tree with its parent in both directions when removeFromParent is called', function() {
+    tree.addChild(5);
+    tree.children[0].addChild(1);
+    tree.children[0].addChild(2);
+    tree.children[0].children[0].addChild(3);
+    tree.children[0].children[0].removeFromParent();
+    expect(tree.contains(1)).to.equal(false);
+    expect(tree.children[0].children[1].value).to.equal(3);
+    expect(tree.children[0].children[1].parent.value).to.equal(5);
+    expect(tree.contains(2)).to.equal(true);
+  });
+
   it('should add children to the tree', function() {
     tree.addChild(5);
     expect(tree.children[0].value).to.equal(5);
+  });
+
+  it('should create link to parent when child is added', function() {
+    tree.addChild(5);
+    tree.children[0].addChild(1);
+    tree.children[0].addChild(2);
+    expect(tree.children[0].children[0].parent.value).to.equal(5);
   });
 
   it('should return true for a value that the tree contains', function(){
